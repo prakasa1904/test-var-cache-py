@@ -15,7 +15,9 @@ class ServerHandler(BaseHTTPRequestHandler):
 		""" Let's Count Our API Peformance """
 		cacheData = cache.get(MEMORY_KEY)
 		if cacheData != False:
+			print "========= MEMORY DATA ========="
 			print "%s" % cacheData
+			print "========= MEMORY DATA ========="
 		else:
 			jsonData = post.getPostData()
 			cache.set(MEMORY_KEY, jsonData)
