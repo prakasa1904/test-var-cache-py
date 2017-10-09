@@ -1,0 +1,1 @@
+POST = 'http://administrator.terpusat.com/place/all/district/'
