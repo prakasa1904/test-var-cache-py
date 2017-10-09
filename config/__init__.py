@@ -9,3 +9,4 @@ MIME_TYPES_PERMITTED = {
 	'.js': 'application/javascript',
 	'.css': 'text/css',
 }
+MEMORY_KEY = 'cache_post'

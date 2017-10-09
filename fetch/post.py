@@ -12,7 +12,8 @@ class PostModel:
 			print 'Response Time Our API is %s' % (toc - tic)
 			return req.json()
 		else:
-			data = {}
-			data['message'] = 'Failed'
-			data['status'] = req.status_code
+			data = {
+				'message' : 'Failed',
+				'status': req.status_code
+			}
 			return json.dumps(data)
