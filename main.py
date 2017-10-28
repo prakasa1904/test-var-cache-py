@@ -6,22 +6,31 @@ from config import HOST, PORT, MIME_TYPES_PERMITTED, MEMORY_KEY
 from cache import Cache
 from fetch import PostModel
 
-MEMORY_DATA = {}
-
 class ServerHandler(BaseHTTPRequestHandler):
-	def do_GET(self):
-		cache = Cache(MEMORY_DATA)
-		post = PostModel()
-		""" Let's Count Our API Peformance """
-		cacheData = cache.get(MEMORY_KEY)
-		if cacheData != False:
-			print "========= MEMORY DATA ========="
-			print "%s" % cacheData
-			print "========= MEMORY DATA ========="
-		else:
-			jsonData = post.getPostData()
-			cache.set(MEMORY_KEY, jsonData)
-		""" Let's Count Our API Peformance """
+	def do_GET(self):	
+		if self.path == '/':
+			self.path = '/index.html'
+			try:
+				extension = os.path.splitext(self.path)[-1]
+				mimeTypes = MIME_TYPES_PERMITTED.get(extension)
+				isAvailable = mimeTypes is not None
+				if isAvailable == True:
+					""" LOGING ONLY """
+					file = open(self.path)
+					self.send_response(200)
+					self.send_header('Content-type',mimeTypes)
+					self.wfile.write(file.read())
+					file.close()
+				return
+			except IOError:
+				self.send_error(404, "File Not Found %s" % self.path)
+
+		elif self.path == '/favicon.ico':
+			file = open(self.path)
+			self.send_response(200)
+			self.send_header('Content-type', "")
+			self.wfile.write(file.read())
+			file.close()
 
 if __name__ == '__main__':
 	server = HTTPServer((HOST, PORT), ServerHandler)
