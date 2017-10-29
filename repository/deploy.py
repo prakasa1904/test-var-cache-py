@@ -22,7 +22,7 @@ def trippedia_front_php():
   repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
   basePath = '/data/apps/trippedia.co.id'
   if os.path.isdir(basePath) == False:
-    args = 'cd /data/apps && mkdir trippedia.co.id && cd ' + basePath + 'git clone ' + repoPath
+    args = 'cd /data/apps && mkdir trippedia.co.id && cd ' + basePath + '&& git clone ' + repoPath
     local(args)
   else:
-    run('git checkout . && git pull')
+    local('git checkout . && git pull')
