@@ -51,7 +51,7 @@ class ServerHandler(BaseHTTPRequestHandler):
 		elif ctype == 'application/x-www-form-urlencoded':
 			length = int(self.headers.getheader('content-length'))
 			postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
-		elif ctype == 'application/json'
+		elif ctype == 'application/json':
 			length = int(self.headers.getheader('content-length'))
 			payload = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
 			postvars = json.loads(payload) # build json to object
