@@ -17,22 +17,7 @@ env.user   = "root"
 # Set the password [NOT RECOMMENDED]
 # env.password = "mautauajah"
 
-def update_upgrade():
-  """
-  Update the default OS installation's
-  basic default tools.
-  """
-  #run("aptitude    update")
-  #run("aptitude -y upgrade")
-  pass
-  
-def install_memcached():
-  """ Download and install memcached. """
-  #run("aptitude install -y memcached")
-  pass
-
 def trippedia_front_php():
   #update_upgrade()
   #install_memcached()
-  run("cd /data/apps")
-  run("mkdir trippedia.co.id")
+  run("cd /data/apps && mkdir trippedia.co.id")
