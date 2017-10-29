@@ -63,8 +63,8 @@ class repoValidation:
   def execute_fabric_repo(self):
     registeredRepository = repository.registered.get(self.repository)
     if registeredRepository is not None:
-      # func = getattr(deploy, registeredRepository)
-      print '%s' % registeredRepository 
+      execute_func = getattr(deploy, registeredRepository)
+      execute_func()
 
   def success(self, customMessage=''):
     print 'Repo : %s' % self.repository
