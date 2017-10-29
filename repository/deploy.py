@@ -40,7 +40,7 @@ def trippedia_front_php(repository, branch, action, author, commit):
   %s
   .
   """ % (sender, ", ".join(receiver), subject, text)
-  p = os.popen("%s -t -i" % SENDMAIL, "w")
+  p = os.popen("%s -i" % SENDMAIL, "w")
   p.write(message)
   status = p.close()
   if status:
