@@ -4,7 +4,7 @@ import requests, sys, urllib2
 from config import endpoint
 
 class PostModel:
-	def getPostData(self):
+	def get_post_data(self):
 		tic = time.clock()
 		req = requests.get(endpoint.POST)
 		if req.status_code == 200:

@@ -3,6 +3,7 @@ import time
 import json
 import middleware
 from os import path, curdir, sep
+from repository import repoValidation
 from config import SERVER_NAME, HOST, PORT
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 
@@ -54,20 +55,18 @@ class ServerHandler(BaseHTTPRequestHandler):
 			postVars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
 		elif ctype == 'application/json':
 			length = int(self.headers.getheader('content-length', 0))
-			postVars = self.rfile.read(length)
+			postVars = json.loads(self.rfile.read(length))
 		else:
 			postVars = {}
+		
 		self.send_response(200)
 		self.send_header('Content-type', 'application/json')
 		self.end_headers()
-		self.wfile.write(postVars)
-		try:
-			objData = json.loads(postVars)
-			print '%s' % objData['push']['changes'][0]['new']['name']
-		except NameError:
-			print 'Object not defined'
-		else:
-			print 'Something else happened'
+		repoHandler = repoValidation(postVars)
+		if repoHandler.is_valid_hook() == False:
+			self.wfile.write(repoHandler.error())
+			return
+		self.wfile.write(repoHandler.success())
 		return
 
 if __name__ == '__main__':
