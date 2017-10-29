@@ -24,7 +24,7 @@ def trippedia_front_php(repository, branch, action, author, commit):
   repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
   basePath = '/data/apps/trippedia.co.id'
   if os.path.isdir(basePath) == False:
-    args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id && yes'
+    args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id'
     local(args)
   else:
     local('git checkout . && git pull')
@@ -40,8 +40,6 @@ def trippedia_front_php(repository, branch, action, author, commit):
   %s
   .
   """ % (sender, ", ".join(receiver), subject, text)
-  p = os.popen("%s -i" % SENDMAIL, "w")
-  p.write(message)
-  status = p.close()
-  if status:
-    print "Sendmail exit status %s" % status
+  send = os.popen("%s -i" % SENDMAIL, "w")
+  send.write(message)
+  send.close()
