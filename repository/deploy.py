@@ -3,6 +3,7 @@
 #    - download and install an application
 
 # Import Fabric's API module
+import os
 from fabric.api import *
 from email.mime.text import MIMEText
 from subprocess import Popen, PIPE
