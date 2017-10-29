@@ -9,9 +9,6 @@ from email.mime.text import MIMEText
 from subprocess import Popen, PIPE
 
 SENDMAIL = '/usr/sbin/sendmail'
-FROM = 'prakasa@devetek.com'
-TO = 'prakasa@devetek.com,office@mypermatawisata.com'
-SUBJECT = 'MPW Hook'
 
 env.hosts = [
   # 'localhost'
@@ -25,20 +22,22 @@ env.user   = "root"
 # Set the password [NOT RECOMMENDED]
 # env.password = "mautauajah"
 
-def trippedia_front_php(repository, branch, action, author, commit):
-  repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
-  basePath = '/data/apps/trippedia.co.id'
-  if os.path.isdir(basePath) == False:
-    args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id'
-    local(args)
-  else:
-    args = 'cd ' + basePath + ' && git checkout . && git pull'
-    local(args)
+def trippedia_front_php(config, repository, branch, action, author, commit):
+  repoPath = config['repository']
+  basePath = config['path']
+
+  if branch == config['branch']:
+    if os.path.isdir(basePath) == False:
+      args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id'
+      local(args)
+    else:
+      args = 'cd ' + basePath + ' && git checkout . && git pull'
+      local(args)
 
   # send mail to list email
   msg = MIMEText(author + ' ' + action + ' to ' + repository + ' with ID ' + commit)
-  msg["From"] = FROM
-  msg["To"] = TO
-  msg["Subject"] = SUBJECT
+  msg["From"] = config['email']['from']
+  msg["To"] = config['email']['to']
+  msg["Subject"] = config['email']['subject']
   p = Popen([SENDMAIL, '-t', '-oi'], stdin=PIPE)
   p.communicate(msg.as_string())
