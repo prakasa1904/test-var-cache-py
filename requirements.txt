@@ -1,3 +1,4 @@
+supervisor
 netaddr==0.7.19
 yieldfrom.urllib.request==0.1.1
 requests==2.18.4

@@ -42,6 +42,11 @@ class ServerHandler(BaseHTTPRequestHandler):
 				self.send_error(404, "File Not Found %s" % self.path)
 				return
 
+	def do_POST(self):
+		contentLen = int(self.headers.getheader('content-length', 0))
+		postBody = self.rfile.read(contentLen)
+		print "Checking our data %s" % postBody
+
 if __name__ == '__main__':
 	server = HTTPServer((HOST, PORT), ServerHandler)
 	print time.asctime(), "Server Starts - %s:%s" % (HOST, PORT)
