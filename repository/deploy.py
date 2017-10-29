@@ -27,7 +27,8 @@ def trippedia_front_php(repository, branch, action, author, commit):
     args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id'
     local(args)
   else:
-    local('git checkout . && git pull')
+    args = 'cd ' + basePath + ' && git checkout . && git pull'
+    local(args)
 
   sender = 'prakasa@devetek.com'
   receiver = 'prakasa@devetek.com,office@mypermatawisata.com'
