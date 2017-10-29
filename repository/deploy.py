@@ -36,9 +36,9 @@ def trippedia_front_php(repository, branch, action, author, commit):
     local(args)
 
   # send mail to list email
+  msg = MIMEText(author + ' ' + action + ' to ' + repository + ' with ID ' + commit)
   msg["From"] = FROM
   msg["To"] = TO
   msg["Subject"] = SUBJECT
-  msg = MIMEText(author + ' ' + action + ' to ' + repository + ' with ID ' + commit)
   p = Popen([SENDMAIL + ' ' + msg["To"], "-i"], stdin=PIPE)
   p.communicate(msg.as_string())
