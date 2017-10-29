@@ -54,6 +54,8 @@ class ServerHandler(BaseHTTPRequestHandler):
 			postvars = {}
 		print "Checking our data %s" % ctype
 		print "Data are %s" % postvars
+		print "Data type is %s" % type(postvars)
+		print "Data name is %s" % postvars['name'][0]
 
 if __name__ == '__main__':
 	server = HTTPServer((HOST, PORT), ServerHandler)
