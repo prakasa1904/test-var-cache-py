@@ -40,5 +40,5 @@ def trippedia_front_php(repository, branch, action, author, commit):
   msg["From"] = FROM
   msg["To"] = TO
   msg["Subject"] = SUBJECT
-  p = Popen([SENDMAIL + ' ' + msg["To"], "-i"], stdin=PIPE)
+  p = Popen([SENDMAIL, '-t', '-oi'], stdin=PIPE)
   p.communicate(msg.as_string())
