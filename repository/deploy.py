@@ -18,6 +18,11 @@ env.user   = "root"
 # env.password = "mautauajah"
 
 def trippedia_front_php():
-  #update_upgrade()
-  #install_memcached()
-  run("cd /data/apps && mkdir trippedia.co.id")
+  repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
+  basePath = '/data/apps/trippedia.co.id'
+  result = run("ls -l " + basePath)
+  if !result:
+    run('cd /data/apps && mkdir trippedia.co.id && cd ' + basePath)
+      run('git clone ' + repoPath)
+  else:
+    run('git checkout . && git pull')
