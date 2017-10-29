@@ -22,7 +22,7 @@ env.user   = "root"
 
 def trippedia_front_php(repository, branch, action, author, commit):
   repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
-  basePath = '/data/apps/'
+  basePath = '/data/apps/trippedia.co.id'
   if os.path.isdir(basePath) == False:
     args = 'cd /data/apps && git clone ' + repoPath + ' trippedia.co.id && yes'
     local(args)
