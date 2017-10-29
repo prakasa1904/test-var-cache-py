@@ -55,8 +55,9 @@ class ServerHandler(BaseHTTPRequestHandler):
 			length = int(self.headers.getheader('content-length'))
 			postVars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
 		elif ctype == 'application/json':
-			length = int(self.headers.getheader('content-length'))
-			postVars = cgi.parse_qs(self.rfile.read(length))
+			# length = int(self.headers.getheader('content-length'))
+			# postVars = cgi.parse_qs(self.rfile.read(length))
+			postVars = {}
 			data = sys.stdin.read()
 		else:
 			postVars = {}
