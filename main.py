@@ -1,8 +1,6 @@
 import cgi
-import sys
 import time
 import json
-import pprint
 import middleware
 from os import path, curdir, sep
 from config import SERVER_NAME, HOST, PORT
@@ -55,10 +53,8 @@ class ServerHandler(BaseHTTPRequestHandler):
 			length = int(self.headers.getheader('content-length'))
 			postVars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
 		elif ctype == 'application/json':
-			# length = int(self.headers.getheader('content-length'))
-			# postVars = cgi.parse_qs(self.rfile.read(length))
-			postVars = {}
-			data = sys.stdin.read()
+			length = int(self.headers.getheader('content-length', 0))
+			postVars = self.rfile.read(length)
 		else:
 			postVars = {}
 		self.send_response(200)
@@ -66,7 +62,7 @@ class ServerHandler(BaseHTTPRequestHandler):
 		self.end_headers()
 		self.wfile.write(postVars)
 		print '%s' % postVars
-		print '%s' % data
+		print '%s' % json.loads(postVars)
 		return
 
 if __name__ == '__main__':
