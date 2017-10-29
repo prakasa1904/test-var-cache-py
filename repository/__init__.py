@@ -37,8 +37,7 @@ class repoValidation:
 
   def set_author(self, hookData):
     try:
-      author = '%s - (%s)' % hookData['actor']['display_name'], hookData['actor']['username']
-      return author
+      return hookData['actor']['display_name'] + '(' + hookData['actor']['username'] + ')'
     except NameError:
       return False
 
