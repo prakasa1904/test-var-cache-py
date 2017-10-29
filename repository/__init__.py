@@ -64,15 +64,9 @@ class repoValidation:
     registeredRepository = repository.registered.get(self.repository)
     if registeredRepository is not None:
       execute_func = getattr(deploy, registeredRepository)
-      execute_func()
+      execute_func(self.repository, self.branch, self.action, self.author, self.commit)
 
   def success(self, customMessage=''):
-    print 'Repo : %s' % self.repository
-    print 'Branch : %s' % self.branch
-    print 'Action %s' % self.action
-    print 'Author %s' % self.author
-    print 'Hash %s' % self.commit
-
     if customMessage != '':
       return json.dumps({
         'message' : customMessage,
