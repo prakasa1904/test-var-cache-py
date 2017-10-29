@@ -20,7 +20,7 @@ env.user   = "root"
 def trippedia_front_php():
   repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
   basePath = '/data/apps/trippedia.co.id'
-  result = local("ls -l " + basePath)
+  result = local("ls -l " + basePath, capture=True)
   if result.failed:
     local('cd /data/apps && mkdir trippedia.co.id && cd ' + basePath + 'git clone ' + repoPath)
   else:
