@@ -1,4 +1,6 @@
 import json
+from config import repository
+import deploy
 
 class repoValidation:
   engine = 'bitbucket'
@@ -37,7 +39,7 @@ class repoValidation:
 
   def set_author(self, hookData):
     try:
-      return hookData['actor']['display_name'] + '(' + hookData['actor']['username'] + ')'
+      return hookData['actor']['display_name'] + ' (' + hookData['actor']['username'] + ')'
     except NameError:
       return False
 
@@ -54,8 +56,15 @@ class repoValidation:
     self.action != False and 
     self.author != False and 
     self.commit != False):
+      self.execute_fabric_repo()
       return True
     return False
+
+  def execute_fabric_repo(self):
+    registeredRepository = repository.registered.get(self.repository)
+    if registeredRepository is not None:
+      # func = getattr(deploy, registeredRepository)
+      print '%s' % registeredRepository 
 
   def success(self, customMessage=''):
     print 'Repo : %s' % self.repository
