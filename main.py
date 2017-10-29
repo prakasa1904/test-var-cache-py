@@ -61,8 +61,12 @@ class ServerHandler(BaseHTTPRequestHandler):
 		self.send_header('Content-type', 'application/json')
 		self.end_headers()
 		self.wfile.write(postVars)
-		print '%s' % postVars
-		print '%s' % json.loads(postVars)
+		try:
+			print '%s' % postVars['push']['changes'][0]['new']['name']
+		except NameError:
+			print 'Object not defined'
+		else:
+			print 'Something else happened'
 		return
 
 if __name__ == '__main__':
