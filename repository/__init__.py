@@ -1,6 +1,6 @@
 import json
 from config import repository
-import deploy
+from deploy import *
 
 class repoValidation:
   engine = 'bitbucket'
