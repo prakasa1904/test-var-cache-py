@@ -4,9 +4,13 @@
 
 # Import Fabric's API module
 from fabric.api import *
-import os
+from email.mime.text import MIMEText
+from subprocess import Popen, PIPE
 
 SENDMAIL = '/usr/sbin/sendmail'
+FROM = 'prakasa@devetek.com'
+TO = 'prakasa@devetek.com,office@mypermatawisata.com'
+SUBJECT = 'MPW Hook'
 
 env.hosts = [
   # 'localhost'
@@ -30,16 +34,10 @@ def trippedia_front_php(repository, branch, action, author, commit):
     args = 'cd ' + basePath + ' && git checkout . && git pull'
     local(args)
 
-  sender = 'prakasa@devetek.com'
-  receiver = 'prakasa@devetek.com,office@mypermatawisata.com'
-  subject = 'MPW Hook'
-  text = author + ' ' + action + ' to ' + repository + ' with ID ' + commit
-  message = """\
-  From: %s
-  Subject: %s
-  %s
-  .
-  """ % (sender, subject, text)
-  send = os.popen("%s -i" % SENDMAIL + ' ' + receiver, "w")
-  send.write(message)
-  send.close()
+  # send mail to list email
+  msg["From"] = FROM
+  msg["To"] = TO
+  msg["Subject"] = SUBJECT
+  msg = MIMEText(author + ' ' + action + ' to ' + repository + ' with ID ' + commit)
+  p = Popen([SENDMAIL + ' ' + msg["To"], "-i"], stdin=PIPE)
+  p.communicate(msg.as_string())
