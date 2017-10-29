@@ -30,7 +30,7 @@ def trippedia_front_php(repository, branch, action, author, commit):
     local('git checkout . && git pull')
 
   sender = 'prakasa@devetek.com'
-  receiver = ['nedya.prakasa@tokopedia.com, office@mypermatawisata.com']
+  receiver = 'nedya.prakasa@tokopedia.com, office@mypermatawisata.com'
   subject = 'MPW Hook'
   text = author + ' ' + action + ' to ' + repository + ' with ID ' + commit
   message = """\
@@ -39,7 +39,7 @@ def trippedia_front_php(repository, branch, action, author, commit):
   Subject: %s
   %s
   .
-  """ % (sender, ", ".join(receiver), subject, text)
+  """ % (sender, receiver, subject, text)
   send = os.popen("%s -i" % SENDMAIL, "w")
   send.write(message)
   send.close()
