@@ -35,11 +35,10 @@ def trippedia_front_php(repository, branch, action, author, commit):
   text = author + ' ' + action + ' to ' + repository + ' with ID ' + commit
   message = """\
   From: %s
-  To: %s
   Subject: %s
   %s
   .
-  """ % (sender, receiver, subject, text)
-  send = os.popen("%s -i" % SENDMAIL, "w")
+  """ % (sender, subject, text)
+  send = os.popen("%s -i" % SENDMAIL + receiver, "w")
   send.write(message)
   send.close()
