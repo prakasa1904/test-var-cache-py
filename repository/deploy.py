@@ -30,7 +30,7 @@ def trippedia_front_php(repository, branch, action, author, commit):
     local('git checkout . && git pull')
 
   sender = 'prakasa@devetek.com'
-  receiver = 'nedya.prakasa@tokopedia.com, office@mypermatawisata.com'
+  receiver = 'prakasa@devetek.com,office@mypermatawisata.com'
   subject = 'MPW Hook'
   text = author + ' ' + action + ' to ' + repository + ' with ID ' + commit
   message = """\
