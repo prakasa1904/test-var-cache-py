@@ -4,6 +4,7 @@
 
 # Import Fabric's API module
 from fabric.api import *
+import os
 
 env.hosts = [
   # 'localhost'
@@ -20,8 +21,7 @@ env.user   = "root"
 def trippedia_front_php():
   repoPath = 'git@bitbucket.org:mypermatawisatagroup/frontend-php-version.git'
   basePath = '/data/apps/trippedia.co.id'
-  result = local("ls -l " + basePath, capture=True)
-  if result.failed:
+  if os.path.isdir(basePath) == False:
     local('cd /data/apps && mkdir trippedia.co.id && cd ' + basePath + 'git clone ' + repoPath)
   else:
     run('git checkout . && git pull')
