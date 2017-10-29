@@ -1,6 +1,7 @@
 import cgi
 import time
 import json
+import pprint
 import middleware
 from os import path, curdir, sep
 from config import SERVER_NAME, HOST, PORT
@@ -60,7 +61,8 @@ class ServerHandler(BaseHTTPRequestHandler):
 		self.send_response(200)
 		self.send_header('Content-type', 'application/json')
 		self.end_headers()
-		self.wfile.write(json.dumps(postVars))
+		self.wfile.write(postVars)
+		print '%s' % postVars['push']['changes']
 		return
 
 if __name__ == '__main__':
