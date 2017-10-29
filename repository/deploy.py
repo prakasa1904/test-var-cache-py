@@ -6,6 +6,7 @@
 from fabric.api import *
 
 env.hosts = [
+  # 'localhost'
   # 'server.domain.tld',
   # 'ip.add.rr.ess
   # 'server2.domain.tld',
@@ -14,7 +15,7 @@ env.hosts = [
 env.user   = "root"
 
 # Set the password [NOT RECOMMENDED]
-# env.password = "passwd"
+# env.password = "mautauajah"
 
 def update_upgrade():
   """
@@ -23,11 +24,15 @@ def update_upgrade():
   """
   #run("aptitude    update")
   #run("aptitude -y upgrade")
+  pass
   
 def install_memcached():
   """ Download and install memcached. """
   #run("aptitude install -y memcached")
+  pass
 
 def trippedia_front_php():
   #update_upgrade()
   #install_memcached()
+  run("cd /data/apps")
+  run("mkdir trippedia.co.id")
