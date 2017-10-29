@@ -62,7 +62,8 @@ class ServerHandler(BaseHTTPRequestHandler):
 		self.end_headers()
 		self.wfile.write(postVars)
 		try:
-			print '%s' % postVars['push']['changes'][0]['new']['name']
+			objData = json.loads(postVars)
+			print '%s' % objData['push']['changes'][0]['new']['name']
 		except NameError:
 			print 'Object not defined'
 		else:
