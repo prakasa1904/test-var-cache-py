@@ -1,4 +1,5 @@
 import cgi
+import sys
 import time
 import json
 import pprint
@@ -55,14 +56,16 @@ class ServerHandler(BaseHTTPRequestHandler):
 			postVars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
 		elif ctype == 'application/json':
 			length = int(self.headers.getheader('content-length'))
-			postVars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
+			postVars = cgi.parse_qs(self.rfile.read(length))
+			data = sys.stdin.read()
 		else:
 			postVars = {}
 		self.send_response(200)
 		self.send_header('Content-type', 'application/json')
 		self.end_headers()
 		self.wfile.write(postVars)
-		print '%s' % postVars['push']['changes']
+		print '%s' % postVars
+		print '%s' % data
 		return
 
 if __name__ == '__main__':
