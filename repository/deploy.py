@@ -4,10 +4,9 @@
 
 # Import Fabric's API module
 from fabric.api import *
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
 import os
+
+SENDMAIL = '/usr/sbin/sendmail'
 
 env.hosts = [
   # 'localhost'
@@ -31,24 +30,18 @@ def trippedia_front_php(repository, branch, action, author, commit):
     local('git checkout . && git pull')
 
   sender = 'prakasa@devetek.com'
-  receiver = 'nedya.prakasa@tokopedia.com, office@mypermatawisata.com'
-  msg = MIMEMultipart('alternative')
-  msg['Subject'] = "Link"
-  msg['From'] = sender
-  msg['To'] = receiver
-  html = """\
-  <html>
-    <head></head>
-    <body>
-      <p>%s %s to %s with ID %s<br>
-        <br>
-        More detail visit <a href="https://trippedia.co.id">Trippedia</a>
-      </p>
-    </body>
-  </html>
-  """ % (author, action, repository, commit)
-  content = MIMEText(html, 'html')
-  msg.attach(content)
-  send = smtplib.SMTP('localhost')
-  send.sendmail(sender, receiver, msg.as_string())
-  send.quit()
+  receiver = ['nedya.prakasa@tokopedia.com, office@mypermatawisata.com']
+  subject = 'MPW Hook'
+  text = author + ' ' + action + ' to ' + repository + ' with ID ' + commit
+  message = """\
+  From: %s
+  To: %s
+  Subject: %s
+  %s
+  .
+  """ % (sender, ", ".join(receiver), subject, text)
+  p = os.popen("%s -t -i" % SENDMAIL, "w")
+  p.write(message)
+  status = p.close()
+  if status:
+    print "Sendmail exit status %s" % status
