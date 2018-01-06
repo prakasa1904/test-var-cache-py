@@ -1,5 +1,4 @@
-from endpoint import *
-from repository import *
+__all__ = ['endpoint', 'repository']
 
 SERVER_NAME = 'Terpusat/0.0.1 Hooks/0.1'
 HOST = 'localhost'

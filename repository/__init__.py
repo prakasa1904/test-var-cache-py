@@ -1,6 +1,7 @@
+__all__ = ['deploy', 'repoValidation']
+
 import json
 from config import repository
-from deploy import *
 
 class repoValidation:
   engine = 'bitbucket'

@@ -1,13 +1,13 @@
 import cgi
 import time
 import json
-import middleware
+from middleware import security
 from os import path, curdir, sep
 from repository import repoValidation
 from config import SERVER_NAME, HOST, PORT
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
-middlewareHandle = middleware.security.Authorize()
+middlewareHandle = security.Authorize()
 
 class ServerHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
@@ -71,9 +71,9 @@ class ServerHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
 	server = HTTPServer((HOST, PORT), ServerHandler)
-	print time.asctime(), "Server Starts - %s:%s" % (HOST, PORT)
+	print (time.asctime()), "Server Starts - %s:%s" % (HOST, PORT)
 	try:
 		server.serve_forever()
 	except KeyboardInterrupt:
 		server.server_close()
-		print time.asctime(), "Server Stops - %s:%s" % (HOST, PORT)
+		print (time.asctime()), "Server Stops - %s:%s" % (HOST, PORT)

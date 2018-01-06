@@ -7,6 +7,7 @@ import os
 from fabric.api import *
 from email.mime.text import MIMEText
 from subprocess import Popen, PIPE
+from css_html_js_minify import process_single_html_file, process_single_js_file, process_single_css_file, html_minify, js_minify, css_minify
 
 SENDMAIL = '/usr/sbin/sendmail'
 
